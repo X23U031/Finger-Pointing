@@ -13,7 +13,6 @@ import dto.Reward;
 
 public class RewardDAO extends BaseDao {
 
-	//ぷっしゅ！2
 	// ★ Connectionを受け取る形に修正
 	public List<Reward> findAll(Connection con) {
 		List<Reward> rewardList = new ArrayList<>();

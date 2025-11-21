@@ -53,10 +53,19 @@
 			</span>
 		</p>
 
-		<%-- ★★★ 修正ここまで ★★★ --%>
-
 		<p class="rank">
-			順位: <span id="rank-display">（後で実装）</span>
+			順位: <span id="rank-display"> <c:choose>
+					<%-- 順位が 0 より大きい (ランクインした) 場合 --%>
+					<c:when
+						test="${not empty sessionScope.lastRank && sessionScope.lastRank > 0}">
+                        ${sessionScope.lastRank} 位
+                    </c:when>
+					<%-- ゲストプレイ、またはランク外の場合 --%>
+					<c:otherwise>
+                        ランク外
+                    </c:otherwise>
+				</c:choose>
+			</span>
 		</p>
 
 		<div class="button-group">

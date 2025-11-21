@@ -1,0 +1,156 @@
+@charset "UTF-8";
+/* -------------------
+基本設定
+------------------- */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: none;
+    overflow: hidden;
+}
+
+/* -------------------
+コンテナ
+------------------- */
+.game-over-container {
+    text-align: center;
+    border: 2px solid #fff;
+    padding: 50px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 0 20px #fff;
+    animation: fadeInContainer 1.5s ease-out forwards;
+}
+
+@keyframes fadeInContainer {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px #fff, 0 0 25px #f00;
+}
+
+.score,
+.rank {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+/* -------------------
+ボタン
+------------------- */
+.button-group {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid #fff;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 0 20px #fff;
+}
+
+/* -------------------
+カスタムカーソル
+------------------- */
+#custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid white;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    z-index: 9999;
+    transition: width 0.15s, height 0.15s, background-color 0.15s, border 0.15s;
+}
+
+#custom-cursor.active {
+    background-color: white;
+    border-color: white;
+    width: 16px;
+    height: 16px;
+}
+
+.trail {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.4;
+    filter: blur(8px);
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    animation: fadeOut 1s linear forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+.ripple {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border: 2px solid black;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.6;
+    z-index: 9997;
+    animation: rippleEffect 0.6s ease-out forwards;
+}
+
+@keyframes rippleEffect {
+    from {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.6;
+        border-color: black;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(5);
+        opacity: 0;
+    }
+}

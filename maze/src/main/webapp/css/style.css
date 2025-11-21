@@ -1,0 +1,255 @@
+@charset "UTF-8";
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", Meiryo, メイリオ, sans-serif;
+    overflow: hidden;
+    cursor: none;
+    /* デフォルトカーソル非表示 */
+}
+
+/* -------------------
+レイアウト
+------------------- */
+.logo {
+    width: 600px;
+    height: auto;
+    margin-bottom: 10px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 50px;
+}
+
+/* -------------------
+各パーツのスタイル
+------------------- */
+.title {
+    font-size: 5rem;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 4px;
+    text-shadow: 0 0 15px #fff, 0 0 25px #00f;
+    opacity: 0;
+    transform: scale(1.2);
+    animation: fadeInTitle 1.5s ease-out forwards;
+}
+
+@keyframes fadeInTitle {
+    0% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ボタン共通 */
+.btn {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: none;
+    transition: all 0.2s ease-in-out;
+}
+.btn:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 0 20px #fff;
+}
+.login-btn {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+/* -------------------
+カスタムカーソル (省略)
+------------------- */
+#custom-cursor {
+    position: fixed; top: 0; left: 0; width: 20px; height: 20px;
+    border: 2px solid white; border-radius: 50%; pointer-events: none;
+    transform: translate(-50%, -50%); mix-blend-mode: difference;
+    z-index: 9999; transition: width 0.15s, height 0.15s, background-color 0.15s, border 0.15s;
+}
+#custom-cursor.active {
+    background-color: white; border-color: white; width: 16px; height: 16px;
+}
+.trail {
+    position: fixed; width: 12px; height: 12px; background: white;
+    border-radius: 50%; pointer-events: none; opacity: 0.4;
+    filter: blur(8px); z-index: 9998; transform: translate(-50%, -50%);
+    animation: fadeOut 1s linear forwards;
+}
+@keyframes fadeOut {
+    from { opacity: 0.4; transform: scale(1); }
+    to { opacity: 0; transform: scale(2); }
+}
+.ripple {
+    position: fixed; width: 10px; height: 10px; border: 2px solid black;
+    border-radius: 50%; pointer-events: none;
+    transform: translate(-50%, -50%) scale(0); opacity: 0.6;
+    z-index: 9997; animation: rippleEffect 0.6s ease-out forwards;
+}
+@keyframes rippleEffect {
+    from { transform: translate(-50%, -50%) scale(0); opacity: 0.6; border-color: black; }
+    to { transform: translate(-50%, -50%) scale(5); opacity: 0; }
+}
+
+/* -------------------
+   ログイン中（JSP用）
+   ------------------- */
+.user-info {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-size: 1.1rem;
+    color: #fff;
+    cursor: default;
+    z-index: 10;
+}
+.logout-btn {
+    position: absolute;
+    top: 60px; /* ユーザー名の下に配置 */
+    left: 30px;
+    width: 120px; /* 少し小さく */
+    height: 40px;
+    font-size: 1rem;
+    z-index: 10;
+}
+
+
+/* ★★★★★★★★★★★★★★★★★★★★★★
+  ★ 修正点：ここがPC用の設定 ★
+  ★★★★★★★★★★★★★★★★★★★★★★
+*/
+.manual-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px; /* 右上に配置 */
+    width: auto; /* 幅を自動に */
+    padding: 10px 20px; /* パディングでサイズ調整 */
+    height: auto;
+    font-size: 1rem;
+    z-index: 10;
+}
+
+
+/* -------------------
+   スマートフォン対応
+   ------------------- */
+@media (max-width: 768px) {
+    /* (既存のスマホ用 .logo, .title, .btn, .login-btn スタイル...) */
+    .logo { width: 350px; }
+    .title { font-size: 12vw; }
+    .btn { font-size: 1rem; width: auto; height: auto; padding: 8px 20px; }
+    .login-btn { top: 20px; left: 20px; }
+
+    /* (既存のスマホ用 .user-info, .logout-btn スタイル...) */
+    .user-info {
+        top: 20px;
+        left: 20px;
+        font-size: 0.9rem;
+    }
+    .logout-btn {
+        top: 45px;
+        left: 20px;
+        padding: 5px 10px;
+        width: auto;
+        height: auto;
+    }
+
+    /* ★★★★★★★★★★★★★★★★★★★★★★
+      ★ 修正点：ここがスマホ用の設定 ★
+      ★★★★★★★★★★★★★★★★★★★★★★
+    */
+    .manual-btn {
+        top: 20px;
+        right: 20px; /* スマホでも右上に */
+        padding: 8px 15px; /* 少し小さく */
+    }
+}
+
+/* ======================================================
+   ここから SweetAlert2 用：index.jsp と統一デザイン！
+   ====================================================== */
+
+/* ポップアップ本体 */
+.unlock-popup {
+    background: #000 !important;
+    border: 2px solid #fff;
+    border-radius: 16px;
+    padding: 25px !important;
+
+    box-shadow:
+        0 0 20px #fff,
+        0 0 35px #00f;
+}
+
+/* タイトル */
+.unlock-title {
+    font-size: 2rem !important;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    color: #fff !important;
+
+    text-shadow:
+        0 0 15px #fff,
+        0 0 25px #00f;
+}
+
+/* 本文テキスト */
+.unlock-text {
+    color: #fff !important;
+    font-size: 1rem !important;
+}
+
+/* OKボタン */
+.unlock-button {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    padding: 10px 30px !important;
+    font-size: 1.2rem !important;
+    border-radius: 0 !important; /* 角丸なしでクールに */
+    cursor: pointer !important;
+    box-shadow: none !important;
+}
+
+.unlock-button:hover {
+    background-color: #fff !important;
+    color: #000 !important;
+    box-shadow: 0 0 15px #fff !important;
+}

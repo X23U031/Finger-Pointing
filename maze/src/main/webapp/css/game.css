@@ -1,0 +1,47 @@
+@charset "UTF-8";
+/* 全体の設定 */
+body {
+    background-color: #000;
+    color: white;
+    font-family: "SansSerif", sans-serif;
+    margin: 0;
+    /* 画面全体を上・中央・下に3分割 */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* 上部パネル (タイマー) */
+#top-panel {
+    height: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 中央エリア (迷路コンテナ) */
+#maze-container {
+    /* 残りのスペースをすべて占有 */
+    flex-grow: 1;
+    /* 迷路を天地左右中央に配置 */
+    display: grid;
+    place-items: center;
+    overflow: auto; /* 迷路が大きすぎたらスクロール */
+}
+
+/* 迷路本体 */
+#maze-canvas {
+    background-color: #000;
+}
+
+/* 下部パネル (到達数) */
+#bottom-panel {
+    height: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

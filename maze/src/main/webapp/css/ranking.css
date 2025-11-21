@@ -1,0 +1,224 @@
+@charset "UTF-8";
+/* -------------------
+基本設定
+------------------- */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-family: sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    cursor: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* -------------------
+レイアウト・パーツのスタイル
+------------------- */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: none;
+}
+
+/* ★★★ h2 (モードタイトル) のスタイルを追加 ★★★ */
+h2 {
+    font-size: 1.8em;
+    color: #00FFFF; /* (シアン) */
+    text-shadow: 0 0 10px #00FFFF;
+    margin-top: 25px; /* 上のテーブルとの間隔 */
+    margin-bottom: 10px;
+}
+/* ★★★ ここまで追加 ★★★ */
+
+
+.reward-container {
+    width: 95%;
+    max-width: 1500px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.reward-table-wrapper {
+    max-height: 85vh; /* ★ 全体の高さを 85vh に (変更なし) */
+    overflow-y: auto; /* ★ ここでスクロールさせる (変更なし) */
+    overflow-x: hidden;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    min-width: 700px;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #333;
+    border: none;
+    box-shadow:
+        0 -2px 0 0 white,
+        0 2px 0 0 white;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #555;
+    text-align: left;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-right: 1px solid #fff;
+}
+
+th:last-child,
+td:last-child {
+    border-right: none;
+}
+
+thead th {
+    background-color: #333;
+    color: white;
+    position: static;
+    border-top: none;
+    border-bottom: none;
+    border-right: 1px solid #fff;
+    z-index: auto;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #1a1a1a;
+}
+
+.scrolling-wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    white-space: nowrap;
+}
+
+.scrolling-text {
+    display: inline-block;
+    white-space: nowrap;
+    padding-right: 20px;
+    transform: translateX(0);
+    transition: transform 0.1s linear;
+}
+
+/* 3カラム用のカラム幅 (変更なし) */
+thead th:first-child,
+tbody td:first-child {
+    width: 15%;
+    text-align: center;
+}
+thead th:nth-child(2),
+tbody td:nth-child(2) {
+    width: 55%;
+}
+thead th:nth-child(3),
+tbody td:nth-child(3) {
+    width: 30%;
+    text-align: right;
+}
+
+/* ボタン共通スタイル (変更なし) */
+.btn {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: none;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+}
+.btn:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 0 20px #fff;
+}
+.back-button {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: auto;
+    padding: 10px 20px;
+    height: auto;
+    font-size: 1rem;
+}
+
+/* スクロールバー (変更なし) */
+.reward-table-wrapper::-webkit-scrollbar {
+    width: 10px;
+}
+.reward-table-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+.reward-table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+}
+
+/* カスタムカーソル (変更なし) */
+#custom-cursor {
+    position: fixed; top: 0; left: 0; width: 20px; height: 20px;
+    border: 2px solid white; border-radius: 50%; pointer-events: none;
+    transform: translate(-50%, -50%); mix-blend-mode: difference;
+    z-index: 9999; transition: width 0.15s, height 0.15s, background-color 0.15s, border 0.15s;
+}
+#custom-cursor.active {
+    background-color: white; border-color: white; width: 16px; height: 16px;
+}
+.trail {
+    position: fixed; width: 12px; height: 12px; background: white;
+    border-radius: 50%; pointer-events: none; opacity: 0.4;
+    filter: blur(8px); z-index: 9998; transform: translate(-50%, -50%);
+    animation: fadeOut 1.5s linear forwards;
+}
+@keyframes fadeOut {
+    from { opacity: 0.4; transform: scale(1); }
+    to { opacity: 0; transform: scale(2); }
+}
+.ripple {
+    position: fixed; width: 10px; height: 10px; border: 2px solid black;
+    border-radius: 50%; pointer-events: none;
+    transform: translate(-50%, -50%) scale(0); opacity: 0.6;
+    z-index: 9997; animation: rippleEffect 0.6s ease-out forwards;
+}
+@keyframes rippleEffect {
+    from { transform: translate(-50%, -50%) scale(0); opacity: 0.6; border-color: black; }
+    to { transform: translate(-50%, -50%) scale(5); opacity: 0; }
+}

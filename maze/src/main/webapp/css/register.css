@@ -1,0 +1,120 @@
+@charset "UTF-8";
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", Meiryo, メイリオ, sans-serif;
+}
+
+/* -------------------
+ヘッダー
+------------------- */
+header {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+header a {
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #fff;
+    padding: 8px 15px;
+    transition: all 0.2s ease-in-out;
+}
+header a:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* -------------------
+フォーム
+------------------- */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 1px solid #fff;
+    border-radius: 8px;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    border: 1px solid #555;
+    color: #fff;
+    border-radius: 4px;
+    box-sizing: border-box; /* paddingを含めてwidth 100%にする */
+}
+.button-group {
+    text-align: center;
+    margin-top: 30px;
+}
+.btn-create-account {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+}
+.btn-create-account:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* -------------------
+パスワード表示切り替え
+------------------- */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.password-wrapper input {
+    padding-right: 40px; /* アイコンのスペースを確保 */
+}
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+}
+.toggle-password:hover {
+    color: #fff;
+}
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* SVGアイコンの表示切り替え */
+.toggle-password .icon-eye-off {
+    display: none;
+}
+.toggle-password.is-visible .icon-eye {
+    display: none;
+}
+.toggle-password.is-visible .icon-eye-off {
+    display: inline;
+}

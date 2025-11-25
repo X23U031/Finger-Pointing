@@ -69,38 +69,39 @@ window.addEventListener("DOMContentLoaded", () => {
  */
 function unlockSecretMode() {
 
-	Swal.fire({
-		title: 'モード解禁',
-		text: '新しいモードが解禁されました。',
-		icon: 'success',
+    Swal.fire({
+        title: 'モード解禁',
+        text: '新しいモードが解禁されました。',
+        icon: 'success',
 
-		background: '#000',
-		color: '#fff',
+        background: '#000',
+        color: '#fff',
 
-		customClass: {
-			popup: 'unlock-popup',
-			title: 'unlock-title',
-			htmlContainer: 'unlock-text',
-			confirmButton: 'unlock-button',
-			cancelButton: 'unlock-cancel-button'
-		},
+        // ▼▼ これが重要 ▼▼
+        showCancelButton: true,                 // ← キャンセルボタン表示
+        confirmButtonText: '進む',              // ← OK
+        cancelButtonText: 'キャンセル',          // ← キャンセル
 
-		showCancelButton: true,
-		confirmButtonText: 'OK',
-		cancelButtonText: 'キャンセル',
+        customClass: {
+            popup: 'unlock-popup',
+            title: 'unlock-title',
+            htmlContainer: 'unlock-text',
+            confirmButton: 'unlock-button',
+            cancelButton: 'unlock-cancel-button'  // ← 必ず追加
+        },
 
-		reverseButtons: true,  // 左：キャンセル / 右：OK にしたい場合
-		allowOutsideClick: false
-	}).then((result) => {
+        allowOutsideClick: false
+    }).then((result) => {
 
-		if (result.isConfirmed) {
-			// OK → 次画面へ遷移
-			window.location.href = NEXT_PAGE_URL;
+        if (result.isConfirmed) {
+            // OK → 次画面へ遷移
+            window.location.href = NEXT_PAGE_URL;
 
-		} else if (result.isDismissed) {
-			// キャンセル → 何もせず元の画面に留まる
-			console.log("操作キャンセル");
-		}
-
-	});
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // キャンセル → 何もせず残る（必要なら処理追加可）
+            console.log("キャンセルされました");
+        }
+    });
 }
+
+

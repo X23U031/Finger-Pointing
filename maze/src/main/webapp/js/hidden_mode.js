@@ -81,13 +81,26 @@ function unlockSecretMode() {
 			popup: 'unlock-popup',
 			title: 'unlock-title',
 			htmlContainer: 'unlock-text',
-			confirmButton: 'unlock-button'
+			confirmButton: 'unlock-button',
+			cancelButton: 'unlock-cancel-button'
 		},
 
+		showCancelButton: true,
 		confirmButtonText: 'OK',
+		cancelButtonText: 'キャンセル',
+
+		reverseButtons: true,  // 左：キャンセル / 右：OK にしたい場合
 		allowOutsideClick: false
-	}).then(() => {
-		// SweetAlert2 の OK → 次画面へ遷移
-		window.location.href = NEXT_PAGE_URL;
+	}).then((result) => {
+
+		if (result.isConfirmed) {
+			// OK → 次画面へ遷移
+			window.location.href = NEXT_PAGE_URL;
+
+		} else if (result.isDismissed) {
+			// キャンセル → 何もせず元の画面に留まる
+			console.log("操作キャンセル");
+		}
+
 	});
 }

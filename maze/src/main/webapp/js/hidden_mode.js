@@ -77,17 +77,30 @@ function unlockSecretMode() {
 		background: '#000',
 		color: '#fff',
 
+		// ▼▼ これが重要 ▼▼
+		showCancelButton: true,                 // ← キャンセルボタン表示
+		confirmButtonText: '進む',              // ← OK
+		cancelButtonText: 'キャンセル',          // ← キャンセル
+
 		customClass: {
 			popup: 'unlock-popup',
 			title: 'unlock-title',
 			htmlContainer: 'unlock-text',
-			confirmButton: 'unlock-button'
+			confirmButton: 'unlock-button',
+			cancelButton: 'unlock-cancel-button'  // ← 必ず追加
 		},
 
-		confirmButtonText: 'OK',
 		allowOutsideClick: false
-	}).then(() => {
-		// SweetAlert2 の OK → 次画面へ遷移
-		window.location.href = NEXT_PAGE_URL;
+	}).then((result) => {
+
+		if (result.isConfirmed) {
+			// OK → big_game.jsp へ遷移
+			window.location.href = `${contextPath}/jsp/big_game.jsp`;
+		} else if (result.dismiss === Swal.DismissReason.cancel) {
+			// キャンセル → 何もせず残る（必要なら処理追加可）
+			console.log("キャンセルされました");
+		}
 	});
 }
+
+

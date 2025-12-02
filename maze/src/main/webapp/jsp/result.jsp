@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ゲーム終了</title>
 
-<%-- ✅ CSSを外部ファイルから読み込み --%>
+<%-- CSS読み込み --%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/result.css">
 </head>
@@ -17,15 +17,15 @@
 	<div class="game-over-container">
 		<h1>ゲーム終了</h1>
 
-		<%-- 
-          ✅ [修正]
-          SaveScoreServletでセッションに保存した "lastScore" を表示 
-          c:choose を使って、もしセッションにスコアがなければ "0" を表示
-        --%>
 		<p class="score">
-			到達記録: <span id="score-display"> <c:choose>
+			到達記録: <span id="score-display"> 
+				<%-- スコア表示：score または lastScore を探す --%>
+				<c:choose>
+					<c:when test="${not empty sessionScope.score}">
+                        <c:out value="${sessionScope.score}" />
+                    </c:when>
 					<c:when test="${not empty sessionScope.lastScore}">
-                        ${sessionScope.lastScore}
+                        <c:out value="${sessionScope.lastScore}" />
                     </c:when>
 					<c:otherwise>
                         0
@@ -35,33 +35,46 @@
 		</p>
 
 		<p class="rank">
-			順位: <span id="rank-display"> <c:choose>
-					<%-- 順位が 0 より大きい (ランクインした) 場合 --%>
-					<c:when
-						test="${not empty sessionScope.lastRank && sessionScope.lastRank > 0}">
-                        ${sessionScope.lastRank} 位
-                    </c:when>
-					<%-- ゲストプレイ、またはランク外の場合 --%>
-					<c:otherwise>
-                        ランク外
-                    </c:otherwise>
+			順位: <span id="rank-display">
+				<c:choose>
+					<c:when test="${not empty sessionScope.rank}">
+						<c:out value="${sessionScope.rank}" />位
+					</c:when>
+					<c:otherwise>未計測</c:otherwise>
 				</c:choose>
 			</span>
 		</p>
 
 		<div class="button-group">
-			<%-- ✅ リンクを絶対パスに修正 --%>
 			<a href="${pageContext.request.contextPath}/jsp/index.jsp"
 				class="button" id="title-button">タイトル</a>
-			<%-- ✅ リンクを絶対パスに修正 --%>
-			<a href="${pageContext.request.contextPath}/jsp/game.jsp"
-				class="button" id="retry-button">リトライ</a>
+
+			<%-- ★リトライボタンの分岐 --%>
+			<c:choose>
+				
+				<%-- gameMode == 3 : 暗闇モード --%>
+				<c:when test="${sessionScope.gameMode == 3}">
+					<a href="${pageContext.request.contextPath}/jsp/spotlight.jsp"
+						class="button" id="retry-button">リトライ</a>
+				</c:when>
+				
+				<%-- gameMode == 2 : タイムアタック (ta_game.jsp) --%>
+				<c:when test="${sessionScope.gameMode == 2}">
+					<a href="${pageContext.request.contextPath}/jsp/ta_game.jsp"
+						class="button" id="retry-button">リトライ</a>
+				</c:when>
+				
+				<%-- それ以外 : ノーマルモード --%>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/jsp/game.jsp"
+						class="button" id="retry-button">リトライ</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 
 	<div id="custom-cursor"></div>
 
-	<%-- ✅ JavaScriptを外部ファイルから読み込み --%>
 	<script src="${pageContext.request.contextPath}/js/result.js"></script>
 </body>
 </html>

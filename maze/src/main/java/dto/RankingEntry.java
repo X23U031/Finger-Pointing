@@ -32,4 +32,9 @@ public class RankingEntry {
 	public void setScore(int score) {
 		this.score = score;
 	}
+
+	public void setUser_id(int int1) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
 }

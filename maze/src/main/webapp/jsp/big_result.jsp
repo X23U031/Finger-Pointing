@@ -58,8 +58,8 @@
 			<%-- ✅ リンクを絶対パスに修正 --%>
 			<a href="${pageContext.request.contextPath}/jsp/index.jsp"
 				class="button" id="title-button">タイトル</a>
-			<%-- ✅ 「リトライ」は ta_game.jsp を指すように修正 --%>
-			<a href="${pageContext.request.contextPath}/jsp/ta_game.jsp"
+			<%-- ✅ 「リトライ」は big_game.jsp を指すように修正 --%>
+			<a href="${pageContext.request.contextPath}/jsp/big_game.jsp"
 				class="button" id="retry-button">リトライ</a>
 		</div>
 	</div>
@@ -67,6 +67,6 @@
 	<div id="custom-cursor"></div>
 
 	<%-- ✅ タイムアタック用のJS (result.jsのコピー) を読み込み --%>
-	<script src="${pageContext.request.contextPath}/js/ta_result.js"></script>
+	<script src="${pageContext.request.contextPath}/js/big_result.js"></script>
 </body>
 </html>

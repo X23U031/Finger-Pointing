@@ -16,18 +16,23 @@
 /* =====================================================================
    ▼ 隠しボタン用スタイル（test-visible）
    ===================================================================== */
+/* index.jsp の <style> の中 */
+
 .hidden-secret-btn {
-	/* 親要素(logo-wrapper)からの絶対位置になるわ */
-	position: absolute;
-	width: 30px; /* ボタンの大きさ */
-	height: 30px;
-	/* ↓ テスト用：見やすく赤くする（本番は opacity: 0 にしてね） */
-	background: rgba(255, 0, 0, 0.5);
-	border: none;
-	cursor: pointer;
-	z-index: 9999;
-	/* ボタンの中心を座標に合わせるための調整 */
-	transform: translate(-50%, -50%);
+    /* 位置やサイズはそのままでOK */
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    
+    /* ▼▼▼ ここを変える！ ▼▼▼ */
+    background: transparent; /* 背景色をなしに */
+    border: none;
+    cursor: pointer; /* マウスを乗せた時の指マークは残す？（消すなら default にしてね） */
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    
+    /* ★ これが魔法の呪文！完全に見えなくするわ ★ */
+    opacity: 0; 
 }
 </style>
 
@@ -56,23 +61,20 @@
 		<main class="main-content">
 
 			<%-- ▼▼▼ 1. 画像とボタンを包む「箱（wrapper）」を作る ▼▼▼ --%>
-			<div class="logo-wrapper"
-				style="position: relative; display: inline-block;">
+			<div class="logo-wrapper" style="position: relative; display: inline-block;">
 
-				<%-- ロゴ画像 --%>
-				<img
-					src="${pageContext.request.contextPath}/images/finger-pointing.png"
-					alt="ロゴ" class="logo">
+                <img src="${pageContext.request.contextPath}/images/finger-pointing.png" 
+                     alt="ロゴ" class="logo">
 
-				<%-- 
-                   ▼▼▼ 2. 隠しボタンをこの箱の中に入れる ▼▼▼ 
-                   style の top と left を % に変えるのがコツよ！
-                   （とりあえず仮の数字を入れてあるから、あとで調整してね）
+                <%-- 
+                   ▼▼▼ 文字「TEST」を消して、空っぽにするの ▼▼▼ 
                 --%>
-				<button id="secretModeBtn" class="hidden-secret-btn"
-					style="top: 40%; /* 画像の上からどれくらい？ */ left: 51%;">TEST</button>
+                <button id="secretModeBtn" class="hidden-secret-bttesn"
+                    style="top: 40%; left: 51%;">
+                    <%-- ここは空でOK --%>
+                </button>
 
-			</div>
+            </div>
 			<%-- ▲▲▲ 箱はここまで ▲▲▲ --%>
 
 			<h1 class="title">フラッシュ迷路</h1>

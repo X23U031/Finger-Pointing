@@ -52,6 +52,25 @@
  %>
 			</span>
 		</p>
+<<<<<<< HEAD
+=======
+
+		<p class="rank">
+			順位: <span id="rank-display"> <c:choose>
+					<%-- 順位が 0 より大きい (ランクインした) 場合 --%>
+					<c:when
+						test="${not empty sessionScope.lastRank && sessionScope.lastRank > 0}">
+                        ${sessionScope.lastRank} 位
+                    </c:when>
+					<%-- ゲストプレイ、またはランク外の場合 --%>
+					<c:otherwise>
+                        ランク外
+                    </c:otherwise>
+				</c:choose>
+			</span>
+		</p>
+
+>>>>>>> branch 'master' of https://github.com/X23U031/Finger-Pointing.git
 		<div class="button-group">
 			<%-- ✅ リンクを絶対パスに修正 --%>
 			<a href="${pageContext.request.contextPath}/jsp/index.jsp"

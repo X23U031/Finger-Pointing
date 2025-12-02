@@ -180,7 +180,7 @@ function onTimeUp() {
 		})
 		.finally(() => {
 			// ★★★ 修正 ★★★
-			window.location.href = `${CONTEXT_PATH}/jsp/ta_result.jsp`; // タイムアタック結果画面へ
+			window.location.href = `${CONTEXT_PATH}/jsp/big_result.jsp`; // bigTA結果画面へ
 		});
 }
 
@@ -214,7 +214,7 @@ function onGoal() {
 		})
 		.finally(() => {
 			// ★★★ 修正 ★★★
-			window.location.href = `${CONTEXT_PATH}/jsp/ta_result.jsp`; // タイムアタック結果画面へ
+			window.location.href = `${CONTEXT_PATH}/jsp/big_result.jsp`; // bigTA結果画面へ
 		});
 }
 

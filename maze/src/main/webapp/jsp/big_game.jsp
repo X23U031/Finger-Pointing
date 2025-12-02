@@ -27,7 +27,7 @@
 		<span id="score-label">到達数 : 0</span>
 	</div>
 
-	<%-- game.js にプロジェクトのパスを教えるための変数 --%>
+	<%-- big_game.js にプロジェクトのパスを教えるための変数 --%>
 	<script>
 		const CONTEXT_PATH = "${pageContext.request.contextPath}";
 		const NEXT_PAGE_URL = CONTEXT_PATH + "/jsp/big_game.jsp";

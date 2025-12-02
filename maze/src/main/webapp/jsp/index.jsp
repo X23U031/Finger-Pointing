@@ -69,7 +69,7 @@
                 <%-- 
                    ▼▼▼ 文字「TEST」を消して、空っぽにするの ▼▼▼ 
                 --%>
-                <button id="secretModeBtn" class="hidden-secret-bttesn"
+                <button id="secretModeBtn" class="hidden-secret-btn"
                     style="top: 40%; left: 51%;">
                     <%-- ここは空でOK --%>
                 </button>

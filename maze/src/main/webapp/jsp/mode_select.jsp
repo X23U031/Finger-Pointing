@@ -56,22 +56,22 @@
 		</main>
 
 		<nav class="menu-buttons">
-			
+
 			<%--  ノーマルモード --%>
-			<a href="${pageContext.request.contextPath}/jsp/game.jsp" class="btn mode-select-btn">
-				<span class="mode-title">ノーマルモード</span>
+			<a href="${pageContext.request.contextPath}/jsp/game.jsp"
+				class="btn mode-select-btn"> <span class="mode-title">ノーマルモード</span>
 				<span class="mode-subtitle">(3分間スコアアタック)</span>
 			</a>
 
 			<%--  タイムアタックモード --%>
-			<a href="${pageContext.request.contextPath}/jsp/ta_game.jsp" class="btn mode-select-btn">
-				<span class="mode-title">タイムアタックモード</span>
+			<a href="${pageContext.request.contextPath}/jsp/ta_game.jsp"
+				class="btn mode-select-btn"> <span class="mode-title">タイムアタックモード</span>
 				<span class="mode-subtitle">(巨大迷路クリアタイム)</span>
 			</a>
 
 			<%--  暗闇モード --%>
-			<a href="${pageContext.request.contextPath}/jsp/spotlight.jsp" class="btn mode-select-btn">
-				<span class="mode-title">暗闇モード</span>
+			<a href="${pageContext.request.contextPath}/jsp/spotlight.jsp"
+				class="btn mode-select-btn"> <span class="mode-title">暗闇モード</span>
 				<span class="mode-subtitle">(周囲が真っ暗)</span>
 			</a>
 

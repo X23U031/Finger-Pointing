@@ -17,22 +17,19 @@
    ▼ 隠しボタン用スタイル（test-visible）
    ===================================================================== */
 /* index.jsp の <style> の中 */
-
 .hidden-secret-btn {
-    /* 位置やサイズはそのままでOK */
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    
-    /* ▼▼▼ ここを変える！ ▼▼▼ */
-    background: transparent; /* 背景色をなしに */
-    border: none;
-    cursor: pointer; /* マウスを乗せた時の指マークは残す？（消すなら default にしてね） */
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    
-    /* ★ これが魔法の呪文！完全に見えなくするわ ★ */
-    opacity: 0; 
+	/* 位置やサイズはそのままでOK */
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	/* ▼▼▼ ここを変える！ ▼▼▼ */
+	background: transparent; /* 背景色をなしに */
+	border: none;
+	cursor: pointer; /* マウスを乗せた時の指マークは残す？（消すなら default にしてね） */
+	z-index: 9999;
+	transform: translate(-50%, -50%);
+	/* ★ これが魔法の呪文！完全に見えなくするわ ★ */
+	opacity: 0;
 }
 </style>
 
@@ -61,20 +58,22 @@
 		<main class="main-content">
 
 			<%-- ▼▼▼ 1. 画像とボタンを包む「箱（wrapper）」を作る ▼▼▼ --%>
-			<div class="logo-wrapper" style="position: relative; display: inline-block;">
+			<div class="logo-wrapper"
+				style="position: relative; display: inline-block;">
 
-                <img src="${pageContext.request.contextPath}/images/finger-pointing.png" 
-                     alt="ロゴ" class="logo">
+				<img
+					src="${pageContext.request.contextPath}/images/finger-pointing.png"
+					alt="ロゴ" class="logo">
 
-                <%-- 
+				<%-- 
                    ▼▼▼ 文字「TEST」を消して、空っぽにするの ▼▼▼ 
                 --%>
-                <button id="secretModeBtn" class="hidden-secret-btn"
-                    style="top: 40%; left: 51%;">
-                    <%-- ここは空でOK --%>
-                </button>
+				<button id="secretModeBtn" class="hidden-secret-btn"
+					style="top: 40%; left: 51%;">
+					<%-- ここは空でOK --%>
+				</button>
 
-            </div>
+			</div>
 			<%-- ▲▲▲ 箱はここまで ▲▲▲ --%>
 
 			<h1 class="title">フラッシュ迷路</h1>

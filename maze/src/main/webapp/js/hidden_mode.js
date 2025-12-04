@@ -3,7 +3,7 @@
    ============================================================ */
 
 // ▼ 遷移先（自由に変更可）
-const NEXT_PAGE_URL = "../jsp/mode_secret.jsp";
+const NEXT_PAGE_URL = CONTEXT_PATH + "/jsp/big_game.jsp";
 
 // DOM が読み込まれたら隠しボタンにイベントを付与
 window.addEventListener("DOMContentLoaded", () => {
@@ -64,9 +64,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 /**
- * ▼ SweetAlert2 による解禁アラート
- * ※ OK で裏モード画面へ遷移
- */
+* ▼ SweetAlert2 による解禁アラート
+* ※ OK で裏モード画面へ遷移
+*/
 function unlockSecretMode() {
 
 	Swal.fire({
@@ -95,12 +95,13 @@ function unlockSecretMode() {
 
 		if (result.isConfirmed) {
 			// OK → big_game.jsp へ遷移
-			window.location.href = `${contextPath}/jsp/big_game.jsp`;
+			window.location.href = NEXT_PAGE_URL;
 		} else if (result.dismiss === Swal.DismissReason.cancel) {
 			// キャンセル → 何もせず残る（必要なら処理追加可）
 			console.log("キャンセルされました");
 		}
 	});
 }
+
 
 

@@ -1,0 +1,61 @@
+@charset "UTF-8";
+@charset "UTF-8";
+ 
+/* 全体の設定 */
+body {
+	background-color: #000;
+	/* 完全な黒 */
+	color: white;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	margin: 0;
+	/* 画面全体を上・中央・下に3分割 */
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+	/* スクロールバー非表示 */
+}
+ 
+/* 上部パネル (タイマー) */
+#top-panel {
+	height: 60px;
+	font-size: 28px;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #000;
+	letter-spacing: 2px;
+}
+ 
+/* 中央エリア (迷路コンテナ) */
+#maze-container {
+	flex-grow: 1;
+	display: flex;
+	/* Flexboxで中央揃え */
+	align-items: center;
+	justify-content: center;
+	background-color: #000;
+	position: relative;
+}
+ 
+/* 迷路本体 (キャンバス) */
+#maze-canvas {
+	background-color: #000;
+	/* ほんのり発光させて境界を分かるようにする */
+	box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+	border: 1px solid #333;
+	/* 暗い枠線 */
+}
+ 
+/* 下部パネル (スコア) */
+#bottom-panel {
+	height: 60px;
+	font-size: 24px;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #000;
+}
+ 

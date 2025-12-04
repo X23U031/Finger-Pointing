@@ -56,18 +56,25 @@
 		</main>
 
 		<nav class="menu-buttons">
-			<%-- ★★★ ここから修正 ★★★ --%>
 
-			<%-- classに "mode-select-btn" を追加 --%>
+			<%--  ノーマルモード --%>
 			<a href="${pageContext.request.contextPath}/jsp/game.jsp"
-				class="btn mode-select-btn"> <%-- spanで文字を囲み、CSSで制御 --%> <span
-				class="mode-title">ノーマルモード</span> <span class="mode-subtitle">(3分間スコアアタック)</span>
-			</a> <a href="${pageContext.request.contextPath}/jsp/ta_game.jsp"
+				class="btn mode-select-btn"> <span class="mode-title">ノーマルモード</span>
+				<span class="mode-subtitle">(3分間スコアアタック)</span>
+			</a>
+
+			<%--  タイムアタックモード --%>
+			<a href="${pageContext.request.contextPath}/jsp/ta_game.jsp"
 				class="btn mode-select-btn"> <span class="mode-title">タイムアタックモード</span>
 				<span class="mode-subtitle">(巨大迷路クリアタイム)</span>
 			</a>
 
-			<%-- ★★★ ここまで修正 ★★★ --%>
+			<%--  暗闇モード --%>
+			<a href="${pageContext.request.contextPath}/jsp/spotlight.jsp"
+				class="btn mode-select-btn"> <span class="mode-title">暗闇モード</span>
+				<span class="mode-subtitle">(周囲が真っ暗)</span>
+			</a>
+
 		</nav>
 	</div>
 

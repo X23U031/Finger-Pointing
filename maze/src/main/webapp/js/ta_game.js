@@ -164,7 +164,7 @@ function onTimeUp() {
 	formData.append('score', 0); // タイムアップはスコア0
 	formData.append('mode', 'time_attack');
 
-	fetch(`${CONTEXT_PATH}/SaveTimeAttackServlet`, {
+	fetch(CONTEXT_PATH + '/SaveTimeAttackServlet', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',

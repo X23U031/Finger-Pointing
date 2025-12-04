@@ -196,7 +196,7 @@ function onTimeUp() {
 	formData.append('score', score);
 
 	// 専用サーブレットへ送信
-	fetch(`${CONTEXT_PATH}/SaveSpotlightServlet`, {
+	fetch(`${CONTEXT_PATH}/SaveSpotLightServlet`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 		body: formData

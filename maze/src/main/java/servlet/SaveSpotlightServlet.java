@@ -18,12 +18,15 @@ import dto.RankingEntry;
 import dto.Score;
 import dto.User;
 
-@WebServlet("/SaveSpotLightServlet")
-public class SaveSpotLightServlet extends HttpServlet {
+@WebServlet("/SaveSpotlightServlet")
+public class SaveSpotlightServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		System.out.println("SaveSpotlightServletが呼ばれました！");
+
 		int finalScore = 0;
 		try {
 			finalScore = Integer.parseInt(request.getParameter("score"));
@@ -35,7 +38,9 @@ public class SaveSpotLightServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
-		int rank = 0;
+
+		// ★修正1: デフォルトを1位にしておく
+		int rank = 1;
 
 		ScoreDAO scoreDao = new ScoreDAO();
 		RewardDAO rewardDao = new RewardDAO();
@@ -49,22 +54,23 @@ public class SaveSpotLightServlet extends HttpServlet {
 				Score score = new Score();
 				score.setUserId(loginUser.getUserId());
 				score.setScore(finalScore);
-				score.setGameMode(3); // ★ モード3
+				score.setGameMode(3);
 
 				scoreDao.insertScore(con, score);
 
-				// 順位計算 (スコアが高いほうが偉い)
+				// 現在のランキング(全員のMAXスコア)を取得
 				List<RankingEntry> rankingList = scoreDao.getSpotlightRankingList(con);
-				int calculatedRank = 1;
+
+				// ★★★ 修正2: 「今回のスコア」の順位を計算するロジック ★★★
+				// IDを探すのではなく、「自分より上のスコアが何人いるか」を数える
 				for (RankingEntry entry : rankingList) {
-					// ★ 自分よりスコアが高い人がいたら順位を下げる
+					// もしランキング上の誰かのスコアが、今回のスコアより高ければ
 					if (entry.getScore() > finalScore) {
-						calculatedRank++;
+						rank++; // 順位を1つ下げる
 					}
 				}
-				rank = calculatedRank;
 
-				// 実績解除 (順位系のみ)
+				// 実績解除 (※ここは今回の順位で判定して良いか、最高順位かによりますが、一旦今のrankで渡します)
 				rewardDao.checkAndGrantRankAchievements(con, loginUser.getUserId(), rank);
 
 			} else {
@@ -83,7 +89,11 @@ public class SaveSpotLightServlet extends HttpServlet {
 
 		session.setAttribute("lastScore", finalScore);
 		session.setAttribute("lastMode", "spotlight");
-		session.setAttribute("lastRank", rank);
+		session.setAttribute("gameMode", 3);
+
+		// ★修正3: JSPが読み取るキー名は "rank"
+		session.setAttribute("rank", rank);
+
 		response.setStatus(HttpServletResponse.SC_OK);
 	}
 }

@@ -174,8 +174,7 @@ function onTimeUp() {
 	formData.append('score', score); // 'score'という名前で、スコア変数をセット
 
 	// 2. fetch API を使って SaveScoreServlet を呼び出す
-	//    (game.jspで定義した CONTEXT_PATH を使う)
-	fetch(`${CONTEXT_PATH}/SaveScoreServlet`, {
+	fetch(CONTEXT_PATH + '/SaveScoreServlet', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',

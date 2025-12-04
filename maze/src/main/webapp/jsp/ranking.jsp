@@ -86,14 +86,14 @@
 				</tbody>
 			</table>
 
-			<%-- 3. スポットライトモード --%>
-			<h2>スポットライトモード (暗闇クリアタイム)</h2>
+			<%-- ★★★ 3. スポットライトモード・ランキング (★追加) ★★★ --%>
+			<h2>スポットライトモード (到達数)</h2>
 			<table>
 				<thead>
 					<tr>
 						<th>順位</th>
 						<th>名前</th>
-						<th>タイム</th>
+						<th>到達エリア数</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -101,24 +101,17 @@
 						varStatus="status">
 						<tr>
 							<td>${status.count}</td>
-							<td><div class="scrolling-wrapper">
+							<td>
+								<div class="scrolling-wrapper">
 									<span class="scrolling-text">${entry.userName}</span>
-								</div></td>
-							<td style="text-align: right;">
-								<%
-								RankingEntry entry = (RankingEntry) pageContext.getAttribute("entry");
-								long timeInMs = (long) entry.getScore();
-								long min = (timeInMs / 1000) / 60;
-								long sec = (timeInMs / 1000) % 60;
-								long ms = timeInMs % 1000;
-								out.print(String.format("%d : %02d . %03d", min, sec, ms));
-								%>
+								</div>
 							</td>
+							<td>${entry.score}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty spotlightRankingList}">
 						<tr>
-							<td colspan="3" style="text-align: center;">データなし</td>
+							<td colspan="3" style="text-align: center;">ランキングデータはまだありません。</td>
 						</tr>
 					</c:if>
 				</tbody>

@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- ✅ JSTLのおまじない --%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%-- ✅ Javaのクラス(DTO)をJSPで使うためのおまじない --%>
 <%@ page import="dto.RankingEntry"%>
 
 <!DOCTYPE html>
@@ -20,7 +18,7 @@
 
 		<div class="reward-table-wrapper">
 
-			<%-- ★★★ 1. ノーマルモード・ランキング ★★★ --%>
+			<%-- 1. ノーマルモード --%>
 			<h2>ノーマルモード (スコアアタック)</h2>
 			<table>
 				<thead>
@@ -31,34 +29,33 @@
 					</tr>
 				</thead>
 				<tbody>
+					<%-- JSTLを使ってリストを表示 --%>
 					<c:forEach var="entry" items="${normalRankingList}"
 						varStatus="status">
 						<tr>
 							<td>${status.count}</td>
-							<td>
-								<div class="scrolling-wrapper">
+							<td><div class="scrolling-wrapper">
 									<span class="scrolling-text">${entry.userName}</span>
-								</div>
-							</td>
+								</div></td>
 							<td>${entry.score}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty normalRankingList}">
 						<tr>
-							<td colspan="3" style="text-align: center;">ランキングデータはまだありません。</td>
+							<td colspan="3" style="text-align: center;">データなし</td>
 						</tr>
 					</c:if>
 				</tbody>
 			</table>
 
-			<%-- ★★★ 2. タイムアタック・ランキング ★★★ --%>
+			<%-- 2. タイムアタックモード --%>
 			<h2>タイムアタックモード (クリアタイム)</h2>
 			<table>
 				<thead>
 					<tr>
 						<th>順位</th>
 						<th>名前</th>
-						<th>スコア (M:SS.mmm)</th>
+						<th>タイム</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -66,33 +63,62 @@
 						varStatus="status">
 						<tr>
 							<td>${status.count}</td>
-							<td>
-								<div class="scrolling-wrapper">
+							<td><div class="scrolling-wrapper">
 									<span class="scrolling-text">${entry.userName}</span>
-								</div>
-							</td>
+								</div></td>
 							<td style="text-align: right;">
-								<%-- タイムも右揃えに --%> <%-- 
-                                  ta_result.jsp と同じロジックでタイムをフォーマット
-                                --%> <% 
-                                   // JSTLのループ変数 "entry" をJavaで取得
-                                   RankingEntry entry = (RankingEntry) pageContext.getAttribute("entry");
-                                   long timeInMs = (long) entry.getScore();
-                                   
-                                   long totalSeconds = timeInMs / 1000;
-                                   long minutes = totalSeconds / 60;        // 分
-                                   long seconds = totalSeconds % 60;        // 秒
-                                   long millis = timeInMs % 1000;         // ミリ秒
-                                   
-                                   // 画面に出力
-                                   out.print(String.format("%d : %02d . %03d", minutes, seconds, millis));
-                                %>
+								<%
+								RankingEntry entry = (RankingEntry) pageContext.getAttribute("entry");
+								long timeInMs = (long) entry.getScore();
+								long min = (timeInMs / 1000) / 60;
+								long sec = (timeInMs / 1000) % 60;
+								long ms = timeInMs % 1000;
+								out.print(String.format("%d : %02d . %03d", min, sec, ms));
+								%>
 							</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${empty timeAttackRankingList}">
 						<tr>
-							<td colspan="3" style="text-align: center;">ランキングデータはまだありません。</td>
+							<td colspan="3" style="text-align: center;">データなし</td>
+						</tr>
+					</c:if>
+				</tbody>
+			</table>
+
+			<%-- 3. スポットライトモード --%>
+			<h2>スポットライトモード (暗闇クリアタイム)</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>順位</th>
+						<th>名前</th>
+						<th>タイム</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="entry" items="${spotlightRankingList}"
+						varStatus="status">
+						<tr>
+							<td>${status.count}</td>
+							<td><div class="scrolling-wrapper">
+									<span class="scrolling-text">${entry.userName}</span>
+								</div></td>
+							<td style="text-align: right;">
+								<%
+								RankingEntry entry = (RankingEntry) pageContext.getAttribute("entry");
+								long timeInMs = (long) entry.getScore();
+								long min = (timeInMs / 1000) / 60;
+								long sec = (timeInMs / 1000) % 60;
+								long ms = timeInMs % 1000;
+								out.print(String.format("%d : %02d . %03d", min, sec, ms));
+								%>
+							</td>
+						</tr>
+					</c:forEach>
+					<c:if test="${empty spotlightRankingList}">
+						<tr>
+							<td colspan="3" style="text-align: center;">データなし</td>
 						</tr>
 					</c:if>
 				</tbody>
@@ -106,28 +132,14 @@
 	<div id="custom-cursor"></div>
 	<script src="${pageContext.request.contextPath}/js/ranking.js"></script>
 
-	<%-- スクロールアニメーションを実行 (変更なし) --%>
 	<script>
         document.addEventListener('DOMContentLoaded', () => {
             const cellsToAnimate = [];
             document.querySelectorAll('tbody td:nth-child(2)').forEach(cell => {
-                cellsToAnimate.push({ cell: cell, limit: NAME_CHAR_LIMIT });
+                cellsToAnimate.push({ cell: cell, limit: 22 });
             });
-
             cellsToAnimate.forEach(item => setupScrollingAnimation(item.cell, item.limit));
-
-            let resizeTimer;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                document.querySelectorAll('.scrolling-text').forEach(span => {
-                    if (span.animationLoop) clearTimeout(span.animationLoop);
-                });
-                resizeTimer = setTimeout(() => {
-                    cellsToAnimate.forEach(item => setupScrollingAnimation(item.cell, item.limit));
-                }, 200);
-            });
         });
     </script>
-
 </body>
 </html>

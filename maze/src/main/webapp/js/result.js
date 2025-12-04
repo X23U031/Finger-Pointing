@@ -1,4 +1,5 @@
-// (↓ 既存のカーソル用スクリプトはそのまま)
+// localStorageの読み込み処理は削除しました
+
 const cursor = document.getElementById("custom-cursor");
 let lastTrailTime = 0;
 

@@ -203,7 +203,7 @@ function onTimeUp() {
 	})
 		.catch(error => console.error('Error:', error))
 		.finally(() => {
-			window.location.href = `${CONTEXT_PATH}/jsp/result.jsp`;
+			window.location.href = `${CONTEXT_PATH}/jsp/spotlight_result.jsp`;
 		});
 }
 

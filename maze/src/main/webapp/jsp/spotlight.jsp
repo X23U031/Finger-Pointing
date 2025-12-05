@@ -14,6 +14,8 @@
 
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/jsp/index.jsp"
+		class="back-btn">タイトルへ</a>
 
 	<%-- 上部パネル --%>
 	<div id="top-panel">

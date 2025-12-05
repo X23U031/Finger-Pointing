@@ -13,6 +13,8 @@
 	href="${pageContext.request.contextPath}/css/game.css">
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/jsp/index.jsp"
+		class="back-btn">タイトルへ</a>
 	<div id="top-panel">
 		<span id="time-label">05 : 00</span>
 		<%-- タイムアタック用に時間を変更 --%>

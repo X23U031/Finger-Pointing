@@ -38,7 +38,9 @@ public class SaveSpotlightServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
-		int rank = 0;
+
+		// ★順位の初期値は「1位」にしておく
+		int rank = 1;
 
 		ScoreDAO scoreDao = new ScoreDAO();
 		RewardDAO rewardDao = new RewardDAO();
@@ -56,18 +58,21 @@ public class SaveSpotlightServlet extends HttpServlet {
 
 				scoreDao.insertScore(con, score);
 
-				if (finalScore <= 0) {
-					List<RankingEntry> rankingList = scoreDao.getSpotlightRankingList(con);
-					for (int i = 0; i < rankingList.size(); i++) {
-						RankingEntry entry = rankingList.get(i);
-						if (entry.getUserId() == loginUser.getUserId()) {
-							rank = i + 1;
-							break;
-						}
+				// ★★★ 修正箇所ここから ★★★
+				// 不要な if (finalScore <= 0) { ... } を削除しました。
+
+				List<RankingEntry> rankingList = scoreDao.getSpotlightRankingList(con);
+
+				// 「今回のスコア」がランキングの何位に相当するか計算
+				for (RankingEntry entry : rankingList) {
+					// 自分より高いスコアの人がいたら、順位を1つ下げる
+					if (entry.getScore() > finalScore) {
+						rank++;
 					}
 				}
+				// ★★★ 修正箇所ここまで ★★★
 
-				// 実績解除 (※ここは今回の順位で判定して良いか、最高順位かによりますが、一旦今のrankで渡します)
+				// 実績解除
 				rewardDao.checkAndGrantRankAchievements(con, loginUser.getUserId(), rank);
 
 			} else {
@@ -84,8 +89,12 @@ public class SaveSpotlightServlet extends HttpServlet {
 			}
 		}
 
+		// リザルト画面へのデータ渡し
 		session.setAttribute("lastScore", finalScore);
 		session.setAttribute("lastMode", "spotlight");
+		session.setAttribute("gameMode", 3);
+
+		// ★ result.jsp は "lastRank" を探しているのでこの名前で保存
 		session.setAttribute("lastRank", rank);
 
 		response.setStatus(HttpServletResponse.SC_OK);

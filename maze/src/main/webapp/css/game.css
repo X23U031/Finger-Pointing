@@ -45,3 +45,26 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+/* ...既存のコードの後ろに追加... */
+
+/* タイトルへ戻るボタン */
+.back-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 8px 15px;
+    border: 1px solid #fff;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    z-index: 1000; /* 迷路より手前に表示 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+}

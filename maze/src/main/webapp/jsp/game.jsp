@@ -13,6 +13,8 @@
 	href="${pageContext.request.contextPath}/css/game.css">
 </head>
 <body>
+	<a href="${pageContext.request.contextPath}/jsp/index.jsp"
+		class="back-btn">タイトルへ</a>
 	<div id="top-panel">
 		<%-- ✅ IDを "time-label" に修正 (game.jsに合わせる) --%>
 		<span id="time-label">01 : 30</span>

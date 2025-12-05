@@ -38,9 +38,7 @@ public class SaveSpotlightServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
-
-		// ★修正1: デフォルトを1位にしておく
-		int rank = 1;
+		int rank = 0;
 
 		ScoreDAO scoreDao = new ScoreDAO();
 		RewardDAO rewardDao = new RewardDAO();
@@ -58,15 +56,14 @@ public class SaveSpotlightServlet extends HttpServlet {
 
 				scoreDao.insertScore(con, score);
 
-				// 現在のランキング(全員のMAXスコア)を取得
-				List<RankingEntry> rankingList = scoreDao.getSpotlightRankingList(con);
-
-				// ★★★ 修正2: 「今回のスコア」の順位を計算するロジック ★★★
-				// IDを探すのではなく、「自分より上のスコアが何人いるか」を数える
-				for (RankingEntry entry : rankingList) {
-					// もしランキング上の誰かのスコアが、今回のスコアより高ければ
-					if (entry.getScore() > finalScore) {
-						rank++; // 順位を1つ下げる
+				if (finalScore <= 0) {
+					List<RankingEntry> rankingList = scoreDao.getSpotlightRankingList(con);
+					for (int i = 0; i < rankingList.size(); i++) {
+						RankingEntry entry = rankingList.get(i);
+						if (entry.getUserId() == loginUser.getUserId()) {
+							rank = i + 1;
+							break;
+						}
 					}
 				}
 
@@ -89,10 +86,7 @@ public class SaveSpotlightServlet extends HttpServlet {
 
 		session.setAttribute("lastScore", finalScore);
 		session.setAttribute("lastMode", "spotlight");
-		session.setAttribute("gameMode", 3);
-
-		// ★修正3: JSPが読み取るキー名は "rank"
-		session.setAttribute("rank", rank);
+		session.setAttribute("lastRank", rank);
 
 		response.setStatus(HttpServletResponse.SC_OK);
 	}

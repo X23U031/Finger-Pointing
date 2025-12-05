@@ -17,7 +17,7 @@
 
 	<%-- 上部パネル --%>
 	<div id="top-panel">
-		<span id="time-label">01 : 30</span>
+		<span id="time-label">03 : 00</span>
 	</div>
 
 	<%-- 中央パネル --%>
